@@ -1,0 +1,38 @@
+body {
+    background-color: lightgrey;
+    font-family: 'Roboto', sans-serif;
+}
+
+.top-pane,
+.bottom-pane {
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.buttons-container {
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    align-items: top;
+}
+
+.button {
+    height: 150px;
+    min-width: auto;
+    flex: 0 1 150px;
+    font-size: large;
+}
+
+h1,
+h2 {
+    text-align: center;
+}
+
+.divide-line {
+    height: 1px;
+    background-color: black;
+    margin-top: 0px;
+}
