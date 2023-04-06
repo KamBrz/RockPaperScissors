@@ -1,65 +1,81 @@
-//Rock-Paper-Scissors game
-//User inputs choice through a prompt
-//Computer inputs choice randomly based on array [rock,paper,scissors]
-//Choices get compared with a win/lose/draw result
-//Results get added up over 5 games
-//Final result displayed to the player
+// Create a RockPaperScissors game
+// 1. Randomise hand for computer
+// 2. Make user hand choice based on HTML button
+// 3. Compare hands
+// 4. Log results
 
+function computerChoice() {
+  let randomNumber = Math.floor(Math.random() * 3 + 1);
+  if (randomNumber === 1) {
+    return 'rock';
+  } else if (randomNumber === 2) {
+    return 'paper';
+  } else {
+    return 'scissors';
+  }
+}
 
+let playerScore = 0;
+let computerScore = 0;
+let drawScore = 0;
 
-//Randomise computer selection based on array & return item from an array
-// function getComputerChoice() {
-//     let arrChoice = ["rock","paper","scissors"];
-//     let randomise = Math.floor(Math.random()*arrChoice.length);
-//     return randomWord = arrChoice[randomise];
-// }
+const buttonR = document.querySelector('#rock');
+const buttonP = document.querySelector('#paper');
+const buttonS = document.querySelector('#scissors');
 
-// //Compare player and computers hands
+const results = document.querySelector('#result');
+const playerResult = document.querySelector('#player-score');
+const computerResult = document.querySelector('#computer-score');
+const drawResult = document.querySelector('#draw-score');
 
-// function compareHands (playerSelection) {
-//     const computerSelection = getComputerChoice();
-//     if (playerSelection === computerSelection) {
-//         return ("It's a draw!");
-//     } else if (
-//         playerSelection === "rock" && computerSelection === "scissors" ||
-//         playerSelection === "paper" && computerSelection === "rock" ||
-//         playerSelection === "scissors" && computerSelection === "paper"
-//     ){
-//         return (`You win! ${playerSelection} beats ${computerSelection}!`)
-//     } else {
-//         return (`You lose! ${computerSelection} beats ${playerSelection}!`)
-//     }
-// }
+buttonR.addEventListener('click', () => {
+  playRound('rock');
+});
+buttonP.addEventListener('click', () => {
+  playRound('paper');
+});
+buttonS.addEventListener('click', () => {
+  playRound('scissors');
+});
 
-// const totalRounds = 5;
-// let playerScore = 0;
-// let computerScore = 0;
-// let drawScore = 0; 
+let playRound = (playerHand) => {
+  let computerHand = computerChoice();
+  if (playerHand === computerHand) {
+    drawScore++;
+    results.textContent = "It's a draw!";
+  } else if (
+    (playerHand === 'rock' && computerHand === 'scissors') ||
+    (playerHand === 'paper' && computerHand === 'rock') ||
+    (playerHand === 'scissors' && computerHand === 'paper')) {
+    playerScore++;
+    results.textContent = `You win, ${playerHand} beats ${computerHand}`;
+  } else {
+    computerScore++;
+    results.textContent = `You lose, ${computerHand} beats ${playerHand}`;
+  }
+  results.style.color = '';
+  updateScores();
+  if (playerScore === 5 || computerScore === 5) {
+    endGame();
+  }
+};
 
+const updateScores = () => {
+  playerResult.textContent = `Player wins = ${playerScore}`;
+  computerResult.textContent = `Computer wins = ${computerScore}`;
+  drawResult.textContent = `Draws = ${drawScore}`;
+};
 
-// function game() {
-//     for (let i = 0; i < 99; i++) {
-//         const playerSelection = prompt("Choose: Rock, Paper, or Scissors?").toLowerCase();
-//         const roundResult = compareHands(playerSelection);
-//         if (roundResult.startsWith ("You win")) {
-//             playerScore++;
-//         } else if (roundResult.startsWith("You lose")) {
-//             computerScore++;
-//         } else {
-//             drawScore++;
-//         }
-//         console.log(`User score: ${playerScore}`);
-//         console.log(`Computer score: ${computerScore}`);
-//         console.log(`Draws: ${drawScore}`);
-//     }
-
-//     if (playerScore > computerScore) {
-//         console.log(`You win ${playerScore}:${computerScore}`);
-//     } else if (computerScore > playerScore) {
-//         console.log(`You lose ${computerScore}:${playerScore}`)
-//     } else {
-//         console.log("It's a draw!")
-//     }
-// }
-
-// game();
+const endGame = () => {
+  if (playerScore > computerScore) {
+    results.textContent = 'Congratulations, you won the game!';
+    results.style.color = 'red';
+  } else {
+    results.textContent = 'Machine won the game!';
+    results.style.color = 'blue';
+  }
+  playerScore = 0;
+  computerScore = 0;
+  drawScore = 0;
+  updateScores();
+};

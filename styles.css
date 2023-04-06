@@ -3,10 +3,15 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
-.top-pane,
+.top-pane {
+    height: 100px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
 .bottom-pane {
     height: 100px;
-    display: flex;
     justify-content: center;
     align-items: center;
 }
