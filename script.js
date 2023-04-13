@@ -79,3 +79,5 @@ const endGame = () => {
   drawScore = 0;
   updateScores();
 };
+
+BALBLABLA
